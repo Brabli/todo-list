@@ -27,6 +27,7 @@ def create_todo_list():
         file.close()
 
 # args = array of strings to join
+# This can be run after parse_options as all_args array will be updated
 def create_list_item(args):
     with open(todo_list_path, "a") as todo_list:
         todo_item = " ".join(args)
@@ -84,7 +85,6 @@ def parse_options(options):
         print("Invalid option given!")
         sys.exit()
     finally:
-        print("\n")
         show_todo_list()
 
 
@@ -98,7 +98,9 @@ if (len(all_args) == 0):
     sys.exit()
 
 options = get_options(all_args)
-
 parse_options(options)
+
+if (len(all_args) > 0):
+    create_list_item(all_args)
 
 sys.exit()
