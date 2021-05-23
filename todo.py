@@ -23,7 +23,7 @@ all_args = sys.argv[1:]
 def create_todo_list():
     todo_list = Path(todo_list_path)
     if not todo_list.exists():
-        file = open("todo_list.txt", "w")
+        file = open(todo_list_path, "w")
         file.close()
 
 # args = array of strings to join
@@ -72,9 +72,9 @@ def remove_item(item_number):
                 todo_list.write(all_items[i])
 
 # options = array, command options
-def parse_options(options):
+def parse_options(all_args):
     try:
-        for option in options:
+        for option in all_args:
             letter = option[1]
             # r = REMOVE
             if letter == "r":
@@ -85,7 +85,8 @@ def parse_options(options):
         print("Invalid option given!")
         sys.exit()
     finally:
-        show_todo_list()
+        pass
+        #show_todo_list()
 
 
 #################
