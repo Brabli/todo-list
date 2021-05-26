@@ -1,5 +1,5 @@
 #!/usr/local/bin/python3
-#export PATH="${PATH}:./"
+#export PATH="/Users/bradley/Desktop/Personal Projects/todo:${PATH}"
 
 
 #################
@@ -13,9 +13,15 @@ from pathlib import Path
 #################
 ###  GLOBALS  ###
 #################
-todo_list_path = "./todo_list.txt"
-all_args = sys.argv[1:] 
+current_script_path = os.path.dirname(os.path.realpath(__file__))
 
+if current_script_path == "/Users/bradley/Desktop/Personal Projects/todo":
+    todo_list_path = "./todo_list.txt"
+else:
+    todo_list_path = "/Users/bradley/bin/todo_list.txt"
+
+# todo_list_path = "/Users/bradley/bin/todo_list.txt"
+all_args = sys.argv[1:]
 
 #################
 ### FUNCTIONS ###
