@@ -66,14 +66,12 @@ def get_options(args):
 
 # item_number = int, item number to remove
 def remove_item(item_number):
-    item_number = item_number - 1
+    item_index = item_number - 1
     with open(todo_list_path, "r") as todo_list:
         all_items = todo_list.readlines()
-    # Write mode removes contents of file, unlike append mode
-    
     with open(todo_list_path, "w") as todo_list:
         for i, item in enumerate(all_items):
-            if i != item_number:
+            if i != item_index:
                 todo_list.write(item)
 
 # options = array, command options
