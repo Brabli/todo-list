@@ -20,7 +20,6 @@ if current_script_path == "/Users/bradley/Desktop/Personal Projects/todo":
 else:
     todo_list_path = "/Users/bradley/bin/todo_list.txt"
 
-# todo_list_path = "/Users/bradley/bin/todo_list.txt"
 all_args = sys.argv[1:]
 
 #################
@@ -71,11 +70,11 @@ def remove_item(item_number):
     with open(todo_list_path, "r") as todo_list:
         all_items = todo_list.readlines()
     # Write mode removes contents of file, unlike append mode
-    create_todo_list()
+    
     with open(todo_list_path, "w") as todo_list:
-        for i in range(len(all_items)):
+        for i, item in enumerate(all_items):
             if i != item_number:
-                todo_list.write(all_items[i])
+                todo_list.write(item)
 
 # options = array, command options
 def parse_options(all_args):
@@ -98,6 +97,7 @@ def parse_options(all_args):
 #################
 ###  SCRIPT   ###
 #################
+
 create_todo_list()
 
 if (len(all_args) == 0):
@@ -105,6 +105,7 @@ if (len(all_args) == 0):
     sys.exit()
 
 options = get_options(all_args)
+
 parse_options(options)
 
 if (len(all_args) > 0):
