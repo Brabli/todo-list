@@ -95,7 +95,8 @@ def parse_options(options):
             if letter == "r":
                 line_number = int(option[2:])
                 remove_item(line_number)        
-                print("Removed item " + str(line_number) + ".")      
+                print("Removed item " + str(line_number) + ".")
+                show_todo_list()
     except:
         print("Invalid option given!")
         sys.exit()
