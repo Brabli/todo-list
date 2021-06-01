@@ -47,11 +47,13 @@ def create_list_item(all_args):
     with open(todo_list_path, "a") as todo_list:
         todo_item = " ".join(item_args)
         todo_list.write(todo_item + "\n")
+        print("Item added to list: " + todo_item + ".")
 
 # list_item = string, list item
-def append_todo_item(list_item):
-    with open(todo_list_path, "a") as todo_list:
-        todo_list.write(list_item)
+# def append_todo_item(list_item):
+#     with open(todo_list_path, "a") as todo_list:
+#         todo_list.write(list_item)
+#         print("Appended item \"", list_item, "\". ")
 
 def show_todo_list():
     with open(todo_list_path, "r") as todo_list:
