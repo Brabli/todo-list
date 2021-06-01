@@ -44,10 +44,11 @@ def create_todo_list():
 # args = array of strings to join
 def create_list_item(all_args):
     item_args = list(filter(lambda item : item[0] != "-", all_args))
-    with open(todo_list_path, "a") as todo_list:
-        todo_item = " ".join(item_args)
-        todo_list.write(todo_item + "\n")
-        print("Item added to list: " + todo_item + ".")
+    todo_item = " ".join(item_args)
+    if todo_item:
+        with open(todo_list_path, "a") as todo_list:
+            todo_list.write(todo_item + "\n")
+            print("Item added to list: " + todo_item + ".")
 
 # list_item = string, list item
 # def append_todo_item(list_item):
