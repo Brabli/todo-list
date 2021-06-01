@@ -23,6 +23,7 @@ todo_list_path = "./todo_list.txt" if current_script_path == "/Users/bradley/Des
 
 all_args = sys.argv[1:]
 
+
 #################
 ### FUNCTIONS ###
 #################
@@ -41,7 +42,6 @@ def create_todo_list():
         file = open(todo_list_path, "w")
         file.close()
 
-# args = array of strings to join
 def create_list_item(all_args):
     item_args = list(filter(lambda item : item[0] != "-", all_args))
     todo_item = " ".join(item_args)
@@ -49,12 +49,6 @@ def create_list_item(all_args):
         with open(todo_list_path, "a") as todo_list:
             todo_list.write(todo_item + "\n")
             print("Item added to list: " + todo_item + ".")
-
-# list_item = string, list item
-# def append_todo_item(list_item):
-#     with open(todo_list_path, "a") as todo_list:
-#         todo_list.write(list_item)
-#         print("Appended item \"", list_item, "\". ")
 
 def show_todo_list():
     with open(todo_list_path, "r") as todo_list:
@@ -65,22 +59,19 @@ def show_todo_list():
             print(formatted_item)
         print("\n")
 
-# args = array, global all_args
-def get_options(args):
+def get_options(all_args):
     options = []
-    for arg in args:
+    for arg in all_args:
         if arg[0] == "-":
             options.append(arg);
         else:
             break
     return options
 
-# item_number = int, item number to remove
 def remove_item(item_number):
     item_index = item_number - 1
     with open(todo_list_path, "r") as todo_list:
         all_items = todo_list.readlines()
-        #filtered_items = list(filter(lambda item : item.strip() != "", all_items))
     with open(todo_list_path, "w") as todo_list:
         for i, item in enumerate(all_items):
             if i != item_index and item.strip() != "":
@@ -101,9 +92,6 @@ def parse_options(options):
     except:
         print("Invalid option given!")
         sys.exit()
-    finally:
-        pass
-        #show_todo_list()
 
 
 #################
