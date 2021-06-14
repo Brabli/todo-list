@@ -14,6 +14,7 @@ from pathlib import Path
 #################
 ###  GLOBALS  ###
 #################
+
 current_script_path = os.path.dirname(os.path.realpath(__file__))
 
 # parser = argparse.ArgumentParser()
@@ -86,7 +87,7 @@ def parse_options(options):
             letter = option[1]
             if letter == "r":
                 line_number = int(option[2:])
-                remove_item(line_number)        
+                remove_item(line_number)
                 print("Removed item " + str(line_number) + ".")
                 show_todo_list()
     except:
