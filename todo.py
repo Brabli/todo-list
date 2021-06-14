@@ -43,6 +43,15 @@ def create_todo_list():
         file = open(todo_list_path, "w")
         file.close()
 
+def remove_item(item_number):
+    item_index = item_number - 1
+    with open(todo_list_path, "r") as todo_list:
+        all_items = todo_list.readlines()
+    with open(todo_list_path, "w") as todo_list:
+        for i, item in enumerate(all_items):
+            if i != item_index and item.strip() != "":
+                todo_list.write(item)
+
 def show_todo_list():
     with open(todo_list_path, "r") as todo_list:
         print("\n#################\n### TODO LIST ###\n#################\n")
@@ -68,15 +77,6 @@ def get_options(all_args):
         else:
             break
     return options
-
-def remove_item(item_number):
-    item_index = item_number - 1
-    with open(todo_list_path, "r") as todo_list:
-        all_items = todo_list.readlines()
-    with open(todo_list_path, "w") as todo_list:
-        for i, item in enumerate(all_items):
-            if i != item_index and item.strip() != "":
-                todo_list.write(item)
 
 # options = array, command options
 # options needs to be ["F", [12, 42, 5]] for example
