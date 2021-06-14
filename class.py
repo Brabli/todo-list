@@ -1,11 +1,14 @@
 #!/usr/local/bin/python3
 #export PATH="/Users/bradley/Desktop/Personal Projects/todo:${PATH}"
 
+
 import os
 import sys
 from pathlib import Path
 
+
 all_args = sys.argv[1:]
+
 
 class TodoList:
     current_script_path = os.path.dirname(os.path.realpath(__file__))
@@ -56,7 +59,28 @@ class TodoList:
                 if i != item_index and item.strip() != "":
                     todo_list.write(item)
 
+
 class Parser:
+
+    @classmethod
+    def parse(cls, args):
+        """
+        :param args: All args EXCEPT for first arg which is the filepath.
+        """
+        parsed_args = {
+            "r": [],
+            "i": []
+        }
+        for arg in args:
+            if arg[0] == "-":
+                if arg[1] == "r":
+                    remove_numbers = arg[2:].split(",")
+                    for number in remove_numbers:
+                        parsed_args["r"].append(int(number))
+            else:
+                parsed_args["i"].append(arg)
+        return parsed_args
+
 
     @classmethod
     def create_list_item(cls, all_args):
@@ -88,9 +112,13 @@ class Parser:
             print("Invalid option given!")
             sys.exit()
 
+
+
 if (len(all_args) == 0):
     TodoList.show()
     sys.exit()
+
+print(Parser.parse(all_args))
 
 options = Parser.get_options(all_args)
 Parser.parse_options(options)
@@ -100,3 +128,13 @@ if (len(all_args) > 0):
     TodoList.add(item)
 
 sys.exit()
+
+
+"""
+Parser should split all the arguments into their own arrays
+{
+    r: [],
+    item:
+}
+
+"""
