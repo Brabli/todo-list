@@ -43,14 +43,6 @@ def create_todo_list():
         file = open(todo_list_path, "w")
         file.close()
 
-def create_list_item(all_args):
-    item_args = list(filter(lambda item : item[0] != "-", all_args))
-    todo_item = " ".join(item_args)
-    if todo_item:
-        with open(todo_list_path, "a") as todo_list:
-            todo_list.write(todo_item + "\n")
-            print("Item added to list: " + todo_item + ".")
-
 def show_todo_list():
     with open(todo_list_path, "r") as todo_list:
         print("\n#################\n### TODO LIST ###\n#################\n")
@@ -59,6 +51,14 @@ def show_todo_list():
             formatted_item = (str(i + 1) + ". " + all_items[i]).strip()
             print(formatted_item)
         print("\n")
+
+def create_list_item(all_args):
+    item_args = list(filter(lambda item : item[0] != "-", all_args))
+    todo_item = " ".join(item_args)
+    if todo_item:
+        with open(todo_list_path, "a") as todo_list:
+            todo_list.write(todo_item + "\n")
+            print("Item added to list: " + todo_item + ".")
 
 def get_options(all_args):
     options = []
