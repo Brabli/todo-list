@@ -1,14 +1,11 @@
 #!/usr/local/bin/python3
 #export PATH="/Users/bradley/Desktop/Personal Projects/todo:${PATH}"
 
-
-#################
-###  IMPORTS  ###
-#################
 import os
 import sys
 from pathlib import Path
 
+all_args = sys.argv[1:]
 
 class TodoList:
     current_script_path = os.path.dirname(os.path.realpath(__file__))
@@ -59,7 +56,47 @@ class TodoList:
                 if i != item_index and item.strip() != "":
                     todo_list.write(item)
 
+class Parser:
 
-TodoList.add("This is a new item!")
-TodoList.remove(7)
-TodoList.show()
+    @classmethod
+    def create_list_item(cls, all_args):
+        item_args = list(filter(lambda item : item[0] != "-", all_args))
+        todo_item = " ".join(item_args)
+        return todo_item
+
+    @classmethod
+    def get_options(cls, all_args):
+        options = []
+        for arg in all_args:
+            if arg[0] == "-":
+                options.append(arg);
+            else:
+                break
+        return options
+
+    @classmethod
+    def parse_options(cls, options):
+        try:
+            for option in options:
+                letter = option[1]
+                if letter == "r":
+                    line_number = int(option[2:])
+                    TodoList.remove(line_number)
+                    print("Removed item " + str(line_number) + ".")
+                    TodoList.show()
+        except:
+            print("Invalid option given!")
+            sys.exit()
+
+if (len(all_args) == 0):
+    TodoList.show()
+    sys.exit()
+
+options = Parser.get_options(all_args)
+Parser.parse_options(options)
+
+if (len(all_args) > 0):
+    item = Parser.create_list_item(all_args)
+    TodoList.add(item)
+
+sys.exit()
