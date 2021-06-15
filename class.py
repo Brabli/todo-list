@@ -46,18 +46,20 @@ class TodoList:
             todo_list.write(item + "\n")
             print("Item added to list: " + item + ".")
 
+    # TODO Change this to properly accept lists (arrays)
     @classmethod
-    def remove(cls, item_number):
+    def remove(cls, item_numbers):
         """
         :param item_number: Int, number of line to be removed.
         """
-        item_index = item_number - 1
-        with open(cls.path, "r") as todo_list:
-            all_items = todo_list.readlines()
-        with open(cls.path, "w") as todo_list:
-            for i, item in enumerate(all_items):
-                if i != item_index and item.strip() != "":
-                    todo_list.write(item)
+        for item_number in item_numbers:
+            item_index = item_number - 1
+            with open(cls.path, "r") as todo_list:
+                all_items = todo_list.readlines()
+            with open(cls.path, "w") as todo_list:
+                for i, item in enumerate(all_items):
+                    if i != item_index and item.strip() != "":
+                        todo_list.write(item)
 
 
 class Parser:
@@ -73,18 +75,24 @@ class Parser:
         }
         for arg in args:
             if arg[0] == "-":
-                if arg[1] == "r":
+                option = arg[1]
+                if option == "r":
                     remove_numbers = arg[2:].split(",")
                     for number in remove_numbers:
                         parsed_args["r"].append(int(number))
+
+                elif option == "":
+                    None
             else:
                 parsed_args["i"].append(arg)
+
+        parsed_args["r"].sort(reverse = True)
+        parsed_args["i"] = cls.create_list_item(parsed_args["i"])
+
         return parsed_args
 
-
     @classmethod
-    def create_list_item(cls, all_args):
-        item_args = list(filter(lambda item : item[0] != "-", all_args))
+    def create_list_item(cls, item_args):
         todo_item = " ".join(item_args)
         return todo_item
 
@@ -120,21 +128,16 @@ if (len(all_args) == 0):
 
 print(Parser.parse(all_args))
 
-options = Parser.get_options(all_args)
-Parser.parse_options(options)
+args = Parser.parse(all_args)
 
-if (len(all_args) > 0):
-    item = Parser.create_list_item(all_args)
-    TodoList.add(item)
+TodoList.clean()
+
+if args["i"] != "":
+    TodoList.add(args["i"])
+
+if len(args["r"]) > 0:
+    TodoList.remove(args["r"])
+
+TodoList.show()
 
 sys.exit()
-
-
-"""
-Parser should split all the arguments into their own arrays
-{
-    r: [],
-    item:
-}
-
-"""
