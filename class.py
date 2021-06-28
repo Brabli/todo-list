@@ -97,16 +97,6 @@ class Parser:
         todo_item = " ".join(word_list)
         return todo_item
 
-    # @classmethod
-    # def get_options(cls, all_args):
-    #     options = []
-    #     for arg in all_args:
-    #         if arg[0] == "-":
-    #             options.append(arg);
-    #         else:
-    #             break
-    #     return options
-
     @classmethod
     def parse_options(cls, options):
         try:
