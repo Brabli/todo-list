@@ -5,9 +5,6 @@ import os
 import sys
 from pathlib import Path
 
-all_args = sys.argv[1:]
-
-
 class TodoList:
     current_script_path = os.path.dirname(os.path.realpath(__file__))
     path = "./todo_list.txt" if current_script_path == \
@@ -17,8 +14,20 @@ class TodoList:
         file.close()
 
     @classmethod
-    def execute_args(parsed_args):
-        None
+    def execute_args(cls, parsed_args):
+        print(parsed_args)
+        # no more msg on removal?
+        if len(parsed_args["r"]) > 0:
+            cls.remove(parsed_args["r"])
+
+        if len(parsed_args["a"]) != 0:
+            print(parsed_args["a"])
+            print(parsed_args["i"])
+            cls.amend(parsed_args["a"][0], parsed_args["i"])
+            return
+
+        if parsed_args["i"] != "" and len(parsed_args["a"]) == 0:
+            cls.add(args["i"])
 
     @classmethod
     def show(cls):
@@ -49,6 +58,22 @@ class TodoList:
             print("Item added to list: " + item + ".")
 
     @classmethod
+    def amend(cls, item_index, amended_item):
+        """
+        :param item_index: Int, item index to add to list.
+        :param amended_item: String, string to replace the current item.
+        """
+        with open(cls.path, "r") as todo_list:
+            all_items = todo_list.readlines()
+
+        with open(cls.path, "w") as todo_list:
+            for i, current_item in enumerate(all_items):
+                if i == item_index:
+                    todo_list.write(amended_item + "\n")
+                else:
+                    todo_list.write(current_item)
+
+    @classmethod
     def remove(cls, item_numbers):
         """
         :param item_number: Int, number of line to be removed.
@@ -57,6 +82,7 @@ class TodoList:
             item_index = item_number
             with open(cls.path, "r") as todo_list:
                 all_items = todo_list.readlines()
+
             with open(cls.path, "w") as todo_list:
                 for i, item in enumerate(all_items):
                     if i != item_index and item.strip() != "":
@@ -70,7 +96,7 @@ class Parser:
         :param args: All args EXCEPT for first arg which is the filepath.
         """
         parsed_args = { "r": [], "i": [], "a": [] }
-        # r: remove, i: item, a: apend
+        # r: remove, i: item, a: amend
         for arg in args:
             if arg[0] == "-":
                 option = arg[1]
@@ -104,21 +130,8 @@ class Parser:
         todo_item = " ".join(word_list)
         return todo_item
 
-
-if (len(all_args) == 0):
-    TodoList.show()
-    sys.exit()
-
-args = Parser.parse_args(all_args)
-
+args = Parser.parse_args(sys.argv[1:])
+TodoList.execute_args(args)
 TodoList.clean()
-
-if args["i"] != "":
-    TodoList.add(args["i"])
-
-if len(args["r"]) > 0:
-    TodoList.remove(args["r"])
-
 TodoList.show()
-
 sys.exit()
