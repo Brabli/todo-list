@@ -83,10 +83,12 @@ class Parser:
 
                 elif option == "a":
                     line_to_amend = arg[2:]
-                    parsed_args["a"].append(int(line_to_amend))
+                    index_to_amend = int(line_to_amend) - 1
+                    parsed_args["a"].append(index_to_amend)
 
                 elif option == "":
                     None
+
             else:
                 parsed_args["i"].append(arg)
 
