@@ -15,7 +15,6 @@ class TodoList:
 
     @classmethod
     def execute_args(cls, parsed_args):
-        # no more msg on removal?
         if len(parsed_args["r"]) > 0:
             cls.remove(parsed_args["r"])
 
@@ -65,10 +64,8 @@ class TodoList:
 
         with open(cls.path, "w") as todo_list:
             for i, current_item in enumerate(all_items):
-                if i == item_index:
-                    todo_list.write(amended_item + "\n")
-                else:
-                    todo_list.write(current_item)
+                item = current_item if i != item_index else amended_item + "\n"
+                todo_list.write(item)
 
     @classmethod
     def remove(cls, item_numbers):
