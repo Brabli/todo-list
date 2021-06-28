@@ -1,11 +1,9 @@
 #!/usr/local/bin/python3
 #export PATH="/Users/bradley/Desktop/Personal Projects/todo:${PATH}"
 
-
 import os
 import sys
 from pathlib import Path
-
 
 all_args = sys.argv[1:]
 
@@ -46,7 +44,6 @@ class TodoList:
             todo_list.write(item + "\n")
             print("Item added to list: " + item + ".")
 
-    # TODO Change this to properly accept lists (arrays)
     @classmethod
     def remove(cls, item_numbers):
         """
@@ -63,21 +60,25 @@ class TodoList:
 
 
 class Parser:
-
     @classmethod
     def parse_args(cls, args):
         """
         :param args: All args EXCEPT for first arg which is the filepath.
         """
-        parsed_args = { "r": [], "i": [] }
+        parsed_args = { "r": [], "i": [], "a": [] }
 
         for arg in args:
             if arg[0] == "-":
                 option = arg[1]
+
                 if option == "r":
                     remove_numbers = arg[2:].split(",")
                     for number in remove_numbers:
                         parsed_args["r"].append(int(number))
+
+                elif option == "a":
+                    line_to_amend = arg[2:]
+                    parsed_args["a"].append(int(line_to_amend))
 
                 elif option == "":
                     None
