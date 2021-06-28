@@ -87,7 +87,7 @@ class TodoList:
                     if i != item_index and item.strip() != "":
                         todo_list.write(item)
                     else:
-                        print(f"Removed item {i}: {item.strip()}")
+                        print(f"Removed item {i + 1}: {item.strip()}")
 
 
 class Parser:
