@@ -102,22 +102,6 @@ class Parser:
         todo_item = " ".join(word_list)
         return todo_item
 
-    # TODO Remove this
-    @classmethod
-    def parse_options(cls, options):
-        try:
-            for option in options:
-                letter = option[1]
-                if letter == "r":
-                    line_number = int(option[2:])
-                    TodoList.remove(line_number)
-                    print("Removed item " + str(line_number) + ".")
-                    TodoList.show()
-        except:
-            print("Invalid option given!")
-            sys.exit()
-
-
 
 if (len(all_args) == 0):
     TodoList.show()
