@@ -17,6 +17,10 @@ class TodoList:
         file.close()
 
     @classmethod
+    def execute_args(parsed_args):
+        None
+
+    @classmethod
     def show(cls):
         with open(cls.path, "r") as todo_list:
             print("\n#################\n### TODO LIST ###\n#################\n")
@@ -50,7 +54,7 @@ class TodoList:
         :param item_number: Int, number of line to be removed.
         """
         for item_number in item_numbers:
-            item_index = item_number - 1
+            item_index = item_number
             with open(cls.path, "r") as todo_list:
                 all_items = todo_list.readlines()
             with open(cls.path, "w") as todo_list:
@@ -66,15 +70,16 @@ class Parser:
         :param args: All args EXCEPT for first arg which is the filepath.
         """
         parsed_args = { "r": [], "i": [], "a": [] }
-
+        # r: remove, i: item, a: apend
         for arg in args:
             if arg[0] == "-":
                 option = arg[1]
 
                 if option == "r":
-                    remove_numbers = arg[2:].split(",")
-                    for number in remove_numbers:
-                        parsed_args["r"].append(int(number))
+                    lines_to_remove = arg[2:].split(",")
+                    for line_num in lines_to_remove:
+                        item_index = int(line_num) - 1
+                        parsed_args["r"].append(item_index)
 
                 elif option == "a":
                     line_to_amend = arg[2:]
@@ -97,6 +102,7 @@ class Parser:
         todo_item = " ".join(word_list)
         return todo_item
 
+    # TODO Remove this
     @classmethod
     def parse_options(cls, options):
         try:
