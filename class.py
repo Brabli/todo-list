@@ -65,14 +65,12 @@ class TodoList:
 class Parser:
 
     @classmethod
-    def parse(cls, args):
+    def parse_args(cls, args):
         """
         :param args: All args EXCEPT for first arg which is the filepath.
         """
-        parsed_args = {
-            "r": [],
-            "i": []
-        }
+        parsed_args = { "r": [], "i": [] }
+
         for arg in args:
             if arg[0] == "-":
                 option = arg[1]
@@ -92,8 +90,9 @@ class Parser:
         return parsed_args
 
     @classmethod
-    def create_list_item(cls, item_args):
-        todo_item = " ".join(item_args)
+    def create_list_item(cls, word_list):
+        word_list[0] = word_list[0].capitalize()
+        todo_item = " ".join(word_list)
         return todo_item
 
     @classmethod
@@ -126,9 +125,7 @@ if (len(all_args) == 0):
     TodoList.show()
     sys.exit()
 
-print(Parser.parse(all_args))
-
-args = Parser.parse(all_args)
+args = Parser.parse_args(all_args)
 
 TodoList.clean()
 
