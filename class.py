@@ -15,7 +15,6 @@ class TodoList:
 
     @classmethod
     def execute_args(cls, parsed_args):
-        print(parsed_args)
         # no more msg on removal?
         if len(parsed_args["r"]) > 0:
             cls.remove(parsed_args["r"])
@@ -87,6 +86,8 @@ class TodoList:
                 for i, item in enumerate(all_items):
                     if i != item_index and item.strip() != "":
                         todo_list.write(item)
+                    else:
+                        print(f"Removed item {i}: {item.strip()}")
 
 
 class Parser:
