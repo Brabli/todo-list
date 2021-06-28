@@ -20,8 +20,6 @@ class TodoList:
             cls.remove(parsed_args["r"])
 
         if len(parsed_args["a"]) != 0:
-            print(parsed_args["a"])
-            print(parsed_args["i"])
             cls.amend(parsed_args["a"][0], parsed_args["i"])
             return
 
@@ -87,7 +85,7 @@ class TodoList:
                     if i != item_index and item.strip() != "":
                         todo_list.write(item)
                     else:
-                        print(f"Removed item {i + 1}: {item.strip()}")
+                        print(f"\nRemoved item {i + 1}: {item.strip()}")
 
 
 class Parser:
