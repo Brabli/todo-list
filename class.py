@@ -7,10 +7,17 @@ from pathlib import Path
 
 class TodoList:
     current_script_path = os.path.dirname(os.path.realpath(__file__))
-    path = "./todo_list.txt" if current_script_path == \
-        "/Users/bradley/Desktop/Personal Projects/todo" else "/Users/bradley/bin/todo_list.txt"
-    if not Path(path).exists():
-        file = open(path, "w")
+    dev_script_path = "/Users/bradley/Desktop/Personal Projects/todo"
+    dev_todo_list_path = "./todo_list.txt"
+    live_todo_list_path = "/Users/bradley/bin/todo_list.txt"
+
+    if current_script_path == dev_script_path:
+        todo_list_path = dev_todo_list_path
+    else:
+        todo_list_path = live_todo_list_path
+
+    if not Path(todo_list_path).exists():
+        file = open(todo_list_path, "w")
         file.close()
 
     @classmethod
@@ -27,7 +34,7 @@ class TodoList:
 
     @classmethod
     def show(cls):
-        with open(cls.path, "r") as todo_list:
+        with open(cls.todo_list_path, "r") as todo_list:
             print("\n#################\n### TODO LIST ###\n#################\n")
             all_items = todo_list.readlines()
             for i in range(len(all_items)):
@@ -37,9 +44,9 @@ class TodoList:
 
     @classmethod
     def clean(cls):
-        with open(cls.path, 'r') as todo_list:
+        with open(cls.todo_list_path, 'r') as todo_list:
             all_items = todo_list.readlines()
-        with open(cls.path, "w") as todo_list:
+        with open(cls.todo_list_path, "w") as todo_list:
             for line in all_items:
                 if line.strip():
                     todo_list.write(line)
@@ -49,7 +56,7 @@ class TodoList:
         """
         :param item: String, line to add to list.
         """
-        with open(cls.path, "a") as todo_list:
+        with open(cls.todo_list_path, "a") as todo_list:
             todo_list.write(item + "\n")
             print("Item added to list: " + item + ".")
 
@@ -59,10 +66,10 @@ class TodoList:
         :param item_index: Int, item index to add to list.
         :param amended_item: String, string to replace the current item.
         """
-        with open(cls.path, "r") as todo_list:
+        with open(cls.todo_list_path, "r") as todo_list:
             all_items = todo_list.readlines()
 
-        with open(cls.path, "w") as todo_list:
+        with open(cls.todo_list_path, "w") as todo_list:
             for i, current_item in enumerate(all_items):
                 item = current_item if i != item_index else amended_item + "\n"
                 todo_list.write(item)
@@ -74,10 +81,10 @@ class TodoList:
         """
         for item_number in item_numbers:
             item_index = item_number
-            with open(cls.path, "r") as todo_list:
+            with open(cls.todo_list_path, "r") as todo_list:
                 all_items = todo_list.readlines()
 
-            with open(cls.path, "w") as todo_list:
+            with open(cls.todo_list_path, "w") as todo_list:
                 for i, item in enumerate(all_items):
                     if i != item_index and item.strip() != "":
                         todo_list.write(item)
