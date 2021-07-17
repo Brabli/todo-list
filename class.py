@@ -169,6 +169,11 @@ class Parser:
                     index_to_amend = int(line_to_amend) - 1
                     parsed_args["a"].append(index_to_amend)
 
+                elif option == "h":
+                    # Crude af will change this later
+                    History.show()
+                    sys.exit()
+
                 elif option == "":
                     None
 
