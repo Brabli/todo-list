@@ -4,7 +4,6 @@ from pathlib import Path
 
 class HistoryList:
     current_script_path = os.path.dirname(os.path.realpath(__file__))
-    print(current_script_path)
     dev_script_path = "/Users/bradley/Desktop/Personal Projects/todo/src"
     dev_history_path = "/Users/bradley/Desktop/Personal Projects/todo/resources/history.txt"
     live_history_path = "/Users/bradley/bin/history.txt"
@@ -24,7 +23,7 @@ class HistoryList:
             print("\n#################\n### HISTORY ###\n#################\n")
             all_items = todo_list.readlines()
             for i in range(len(all_items)):
-                formatted_item = (str(i + 1) + ". " + all_items[i]).strip()
+                formatted_item = all_items[i].strip()
                 print(formatted_item)
             print("\n")
 
