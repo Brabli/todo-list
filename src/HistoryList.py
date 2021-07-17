@@ -18,7 +18,7 @@ class HistoryList:
         file.close()
 
     @classmethod
-    def show(cls):
+    def show(cls) -> None:
         with open(cls.history_path, "r") as todo_list:
             print("\n#################\n### HISTORY ###\n#################\n")
             all_items = todo_list.readlines()
@@ -26,15 +26,6 @@ class HistoryList:
                 formatted_item = all_items[i].strip()
                 print(formatted_item)
             print("\n")
-
-    @classmethod
-    def clean(cls):
-        with open(cls.history_path, 'r') as todo_list:
-            all_items = todo_list.readlines()
-        with open(cls.history_path, "w") as todo_list:
-            for line in all_items:
-                if line.strip():
-                    todo_list.write(line)
 
     @classmethod
     def add(cls, item: str, action: str) -> None:
