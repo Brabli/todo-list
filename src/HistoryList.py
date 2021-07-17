@@ -45,4 +45,4 @@ class HistoryList:
         now = datetime.now()
         dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
         with open(cls.history_path, "a") as todo_list:
-            todo_list.write(action.upper() + " " + item + " " + dt_string + "\n")
+            todo_list.write(dt_string + " " + action.upper() + " \"" + item + "\"\n")
