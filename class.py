@@ -3,6 +3,7 @@
 
 import os
 import sys
+from datetime import datetime
 from pathlib import Path
 
 class TodoList:
@@ -59,6 +60,7 @@ class TodoList:
         with open(cls.todo_list_path, "a") as todo_list:
             todo_list.write(item + "\n")
             print("Item added to list: " + item + ".")
+            History.add(item, "ADDED")
 
     @classmethod
     def amend(cls, item_index, amended_item):
@@ -71,8 +73,13 @@ class TodoList:
 
         with open(cls.todo_list_path, "w") as todo_list:
             for i, current_item in enumerate(all_items):
-                item = current_item if i != item_index else amended_item + "\n"
+                if (i != item_index):
+                    item = current_item
+                else:
+                    item = amended_item + "\n"
+                    History.add(amended_item, "AMENDED")
                 todo_list.write(item)
+
 
     @classmethod
     def remove(cls, item_numbers):
@@ -90,14 +97,61 @@ class TodoList:
                         todo_list.write(item)
                     else:
                         print(f"\nRemoved item {i + 1}: {item.strip()}")
+                        History.add(item.strip(), "REMOVED")
+
+class History:
+    current_script_path = os.path.dirname(os.path.realpath(__file__))
+    dev_script_path = "/Users/bradley/Desktop/Personal Projects/todo"
+    dev_history_path = "./history.txt"
+    live_history_path = "/Users/bradley/bin/history.txt"
+
+    if current_script_path == dev_script_path:
+        history_path = dev_history_path
+    else:
+        history_path = live_history_path
+
+    if not Path(history_path).exists():
+        file = open(history_path, "w")
+        file.close()
+
+    @classmethod
+    def show(cls):
+        with open(cls.history_path, "r") as todo_list:
+            print("\n#################\n### HISTORY ###\n#################\n")
+            all_items = todo_list.readlines()
+            for i in range(len(all_items)):
+                formatted_item = (str(i + 1) + ". " + all_items[i]).strip()
+                print(formatted_item)
+            print("\n")
+
+    @classmethod
+    def clean(cls):
+        with open(cls.history_path, 'r') as todo_list:
+            all_items = todo_list.readlines()
+        with open(cls.history_path, "w") as todo_list:
+            for line in all_items:
+                if line.strip():
+                    todo_list.write(line)
+
+    @classmethod
+    def add(cls, item: str, action: str) -> None:
+        """
+        :param item: String, line to add to list.
+        :param action: String, Action taken, ADDED, REMOVED, AMENDED.
+        """
+        now = datetime.now()
+        dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
+        with open(cls.history_path, "a") as todo_list:
+            todo_list.write(action.upper() + " " + item + " " + dt_string + "\n")
 
 
 class Parser:
     @classmethod
-    def parse_args(cls, args):
+    def parse_args(cls, args: list) -> dict:
         """
         :param args: All args EXCEPT for first arg which is the filepath.
         """
+        # Why do I need a hard coded args dict?
         parsed_args = { "r": [], "i": [], "a": [] }
         # r: remove, i: item, a: amend
         for arg in args:
