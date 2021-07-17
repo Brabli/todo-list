@@ -2,3 +2,4 @@
 .vscode
 todo_list.txt
 history.txt
+__pycache__
