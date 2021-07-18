@@ -5,7 +5,7 @@ from .HistoryList import HistoryList
 class TodoList:
     current_script_path = os.path.dirname(os.path.realpath(__file__))
     dev_script_path = "/Users/bradley/Desktop/Personal Projects/todo/src"
-    dev_todo_list_path = "/Users/bradley/Desktop/Personal Projects/todo/resources/todo_list.txt"
+    dev_todo_list_path = "./resources/todo_list.txt"
     live_todo_list_path = "/Users/bradley/bin/todo_list.txt"
 
     if current_script_path == dev_script_path:
