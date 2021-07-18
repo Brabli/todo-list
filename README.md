@@ -1,6 +1,6 @@
-### Info
-This is a todo list. The live file is located at /Users/bradley/bin/todo.
+# Bradley's Personal Todo List CLI
+This is my personal todo list.
 
-### Todo
-- Add a history file of removed to do items.
-- Add a flag to display historical removed items. -h
+I'm using this project as an excuse to learn more about Python, plus it's fun to write programs that I can actually use on a day to day basis.
+
+This repo is only public so anybody can look at the code if they're interested, but if you wanted to use it for yourself you'd have to change some hardcoded filepaths and stuff.
