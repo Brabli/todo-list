@@ -2,6 +2,7 @@ import os
 from pathlib import Path
 from typing import List
 from .HistoryList import HistoryList
+from .ColourPrint import ColourPrint
 
 class TodoList:
     current_script_path = os.path.dirname(os.path.realpath(__file__))
