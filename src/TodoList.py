@@ -79,9 +79,9 @@ class TodoList:
         """
         :param item_number: Int, number of line to be removed.
         """
-        all_items = cls.__get_all_items()
-        with open(cls.todo_list_path, "w") as todo_list:
-            for item_index in indicies_to_remove:
+        for item_index in indicies_to_remove:
+            all_items = cls.__get_all_items()
+            with open(cls.todo_list_path, "w") as todo_list:
                 for i, item in enumerate(all_items):
                     if i != item_index and item.strip() != "":
                         todo_list.write(item)
