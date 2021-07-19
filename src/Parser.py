@@ -9,7 +9,7 @@ class Parser:
         """
         # Why do I need a hard coded args dict?
         parsed_args = { "r": [], "i": [], "a": [] }
-        # r: remove, i: item, a: amend
+        # r: remove, i: item, a: amend, h: history
         for arg in args:
             if arg[0] == "-":
                 option = arg[1]
