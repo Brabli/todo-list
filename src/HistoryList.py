@@ -4,7 +4,7 @@ from pathlib import Path
 
 class HistoryList:
     current_script_path = os.path.dirname(os.path.realpath(__file__))
-    dev_script_path = "/Users/bradley/Desktop/Personal Projects/todo/src"
+    dev_script_path = "/Users/bradley/Personal Projects/todo/src"
     dev_history_path = "./resources/history.txt"
     live_history_path = "/Users/bradley/bin/history.txt"
 
