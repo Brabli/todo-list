@@ -81,6 +81,8 @@ class TodoList:
                 else:
                     item = amended_item + "\n"
                     HistoryList.add(amended_item, "AMENDED")
+                    print(ColourString.colour("blue", f"Item {item_index + 1} amended to: {amended_item}."))
+
                 todo_list.write(item)
 
     @classmethod
@@ -95,7 +97,7 @@ class TodoList:
                     if i != item_index and item.strip() != "":
                         todo_list.write(item)
                     else:
-                        print(f"\nRemoved item {i + 1}: {item.strip()}")
+                        print(ColourString.colour("red", f"Removed item {i + 1}: {item.strip()}"))
                         HistoryList.add(item.strip(), "REMOVED")
 
     @classmethod
