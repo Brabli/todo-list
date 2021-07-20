@@ -2,11 +2,11 @@ import os
 from pathlib import Path
 from typing import List
 from .HistoryList import HistoryList
-from .ColourPrint import ColourPrint
+from .ColourString import ColourString
 
 class TodoList:
     current_script_path = os.path.dirname(os.path.realpath(__file__))
-    dev_script_path = "/Users/bradley/Desktop/Personal Projects/todo/src"
+    dev_script_path = "/Users/bradley/Personal Projects/todo/src"
     dev_todo_list_path = "./resources/todo_list.txt"
     live_todo_list_path = "/Users/bradley/bin/todo_list.txt"
 
@@ -33,11 +33,20 @@ class TodoList:
 
     @classmethod
     def show(cls):
+        print(ColourString.colour("blue", "\n#################"))
+        print(ColourString.colour("orange", "    TODO LIST    "))
+        print(ColourString.colour("blue", "#################\n"))
+
         all_items = cls.__get_all_items()
-        print("\n#################\n### TODO LIST ###\n#################\n")
         for i in range(len(all_items)):
-            formatted_item = (str(i + 1) + ". " + all_items[i]).strip()
-            print(formatted_item)
+            item_number = f"{str(i + 1)}. "
+            item = all_items[i].strip()
+
+            print(ColourString.multicolour({
+                "orange": item_number,
+                "none": item
+            }))
+
         print("\n")
 
     @classmethod
@@ -55,7 +64,7 @@ class TodoList:
         """
         with open(cls.todo_list_path, "a") as todo_list:
             todo_list.write(item + "\n")
-            print("Item added to list: " + item + ".")
+            print(ColourString.colour("green", f"Item added to list: {item}."))
             HistoryList.add(item, "ADDED")
 
     @classmethod
@@ -73,7 +82,6 @@ class TodoList:
                     item = amended_item + "\n"
                     HistoryList.add(amended_item, "AMENDED")
                 todo_list.write(item)
-
 
     @classmethod
     def remove(cls, indicies_to_remove):

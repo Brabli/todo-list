@@ -10,7 +10,7 @@ class ColourString:
         "purple": "\33[95m",
         "cyan": "\33[96m",
         "white": "\33[37m",
-        "none": ""
+        "none": "\33[0m"
     }
     end_colour = "\033[0m"
 
