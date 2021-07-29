@@ -40,15 +40,22 @@ class TodoList:
         print(ColourString.colour("blue", "#################\n"))
 
         all_items = cls.__get_all_items()
-        for i in range(len(all_items)):
-            item_number = f"{str(i + 1)}. "
-            item = all_items[i].strip()
 
-            print(ColourString.multicolour({
-                "orange": item_number,
-                "none": item
-            }))
+        num_items = len(all_items)
 
+        if num_items <= 0:
+            print(ColourString.colour("green", "You've done everything, wow!"))
+
+        else:
+            for i in range(num_items):
+                item_number = f"{str(i + 1)}. "
+                item = all_items[i].strip()
+                print(ColourString.multicolour({
+                    "orange": item_number,
+                    "none": item
+                }))
+
+        print("")
         cls.show_messages()
 
     @classmethod
@@ -115,7 +122,8 @@ class TodoList:
 
     @classmethod
     def show_messages(cls) -> None:
-        for msg in cls.messages:
-            print(msg)
-        print("\n")
+        if (len(cls.messages)) > 0:
+            for msg in cls.messages:
+                print(msg)
+            print("")
 
