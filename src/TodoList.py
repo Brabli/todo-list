@@ -19,6 +19,8 @@ class TodoList:
         file = open(todo_list_path, "w")
         file.close()
 
+    messages = []
+
     @classmethod
     def execute_args(cls, parsed_args):
         if len(parsed_args["r"]) > 0:
@@ -47,7 +49,7 @@ class TodoList:
                 "none": item
             }))
 
-        print("\n")
+        cls.show_messages()
 
     @classmethod
     def clean(cls):
@@ -64,7 +66,7 @@ class TodoList:
         """
         with open(cls.todo_list_path, "a") as todo_list:
             todo_list.write(item + "\n")
-            print(ColourString.colour("green", f"Item added to list: {item}."))
+            cls.add_message(ColourString.colour("green", f"Item added to list: {item}."))
             HistoryList.add(item, "ADDED")
 
     @classmethod
@@ -80,8 +82,8 @@ class TodoList:
                     item = current_item
                 else:
                     item = amended_item + "\n"
+                    cls.add_message(ColourString.colour("blue", f"Item {item_index + 1} amended to: {amended_item}."))
                     HistoryList.add(amended_item, "AMENDED")
-                    print(ColourString.colour("blue", f"Item {item_index + 1} amended to: {amended_item}."))
 
                 todo_list.write(item)
 
@@ -97,7 +99,7 @@ class TodoList:
                     if i != item_index and item.strip() != "":
                         todo_list.write(item)
                     else:
-                        print(ColourString.colour("red", f"Removed item {i + 1}: {item.strip()}"))
+                        cls.add_message(ColourString.colour("red", f"Removed item {i + 1}: {item.strip()}"))
                         HistoryList.add(item.strip(), "REMOVED")
 
     @classmethod
@@ -105,3 +107,15 @@ class TodoList:
         with open(cls.todo_list_path, "r") as todo_list:
             all_items = todo_list.readlines()
             return all_items
+
+    @classmethod
+    def add_message(cls, msg: str) -> None:
+        msg = msg if msg.strip() == msg else msg.strip()
+        cls.messages.append(msg)
+
+    @classmethod
+    def show_messages(cls) -> None:
+        for msg in cls.messages:
+            print(msg)
+        print("\n")
+
