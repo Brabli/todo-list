@@ -102,6 +102,7 @@ class TodoList:
 
         all_items = cls.__get_all_items()
 
+        # allows -r0 to remove last item
         if indicies_to_remove[-1] == -1:
             indicies_to_remove[-1] = len(all_items) - 1
 
