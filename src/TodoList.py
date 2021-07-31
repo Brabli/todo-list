@@ -100,13 +100,13 @@ class TodoList:
         :param indicies_to_remove: List, number of line to be removed.
         """
 
-        all_items = cls.__get_all_items()
 
         # allows -r0 to remove last item
-        if indicies_to_remove[-1] == -1:
-            indicies_to_remove[-1] = len(all_items) - 1
+        # if indicies_to_remove[-1] == -1:
+        #     indicies_to_remove[-1] = len(all_items) - 1
 
         for item_index in indicies_to_remove:
+            all_items = cls.__get_all_items()
             with open(cls.todo_list_path, "w") as todo_list:
                 for i, item in enumerate(all_items):
                     if i != item_index and item.strip() != "":
