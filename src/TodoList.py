@@ -99,12 +99,6 @@ class TodoList:
         """
         :param indicies_to_remove: List, number of line to be removed.
         """
-
-
-        # allows -r0 to remove last item
-        # if indicies_to_remove[-1] == -1:
-        #     indicies_to_remove[-1] = len(all_items) - 1
-
         for item_index in indicies_to_remove:
             all_items = cls.__get_all_items()
             with open(cls.todo_list_path, "w") as todo_list:
@@ -120,6 +114,10 @@ class TodoList:
         with open(cls.todo_list_path, "r") as todo_list:
             all_items = todo_list.readlines()
             return all_items
+
+    @classmethod
+    def get_num_items(cls) -> int:
+        return len(cls.__get_all_items())
 
     @classmethod
     def add_message(cls, msg: str) -> None:

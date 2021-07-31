@@ -1,6 +1,6 @@
 import sys
 from .HistoryList import HistoryList
-
+from .TodoList import TodoList
 class Parser:
     @classmethod
     def parse_args(cls, args: list) -> dict:
@@ -17,7 +17,10 @@ class Parser:
                 if option == "r":
                     lines_to_remove = arg[2:].split(",")
                     for line_num in lines_to_remove:
-                        item_index = int(line_num) - 1
+                        if line_num == "0":
+                            item_index = TodoList.get_num_items() - 1
+                        else:
+                            item_index = int(line_num) - 1
                         parsed_args["r"].append(item_index)
 
                 elif option == "a":
