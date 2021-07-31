@@ -8,7 +8,9 @@ This repo is only public so anybody can look at the code if they're interested, 
 <hr>
 
 ## OPTIONS
-(X is an int)
 
 Remove -rX, -rX,Y,Z...
-Removes 
+Removes specified line numbers.
+
+Amend -aX args...
+Amends a list item with the specified text instead of creating a new item.
