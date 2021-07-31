@@ -2,7 +2,7 @@ import os
 from pathlib import Path
 from typing import List
 from .HistoryList import HistoryList
-from .ColourString import ColourString
+from .ColourString import ColourString as c
 
 class TodoList:
     current_script_path = os.path.dirname(os.path.realpath(__file__))
@@ -35,22 +35,22 @@ class TodoList:
 
     @classmethod
     def show(cls):
-        print(ColourString.colour("blue", "\n#################"))
-        print(ColourString.colour("orange", "    TODO LIST    "))
-        print(ColourString.colour("blue", "#################\n"))
+        print(c.colour("blue", "\n#################"))
+        print(c.colour("orange", "    TODO LIST    "))
+        print(c.colour("blue", "#################\n"))
 
         all_items = cls.__get_all_items()
 
         num_items = len(all_items)
 
         if num_items <= 0:
-            print(ColourString.colour("green", "You've done everything, wow!"))
+            print(c.colour("green", "You've done everything, wow!"))
 
         else:
             for i in range(num_items):
                 item_number = f"{str(i + 1)}. "
                 item = all_items[i].strip()
-                print(ColourString.multicolour({
+                print(c.multicolour({
                     "orange": item_number,
                     "none": item
                 }))
@@ -73,7 +73,7 @@ class TodoList:
         """
         with open(cls.todo_list_path, "a") as todo_list:
             todo_list.write(item + "\n")
-            cls.add_message(ColourString.colour("green", f"Item added to list: {item}."))
+            cls.add_message(c.colour("green", f"Item added to list: {item}."))
             HistoryList.add(item, "ADDED")
 
     @classmethod
@@ -89,7 +89,7 @@ class TodoList:
                     item = current_item
                 else:
                     item = amended_item + "\n"
-                    cls.add_message(ColourString.colour("blue", f"Item {item_index + 1} amended to: {amended_item}."))
+                    cls.add_message(c.colour("blue", f"Item {item_index + 1} amended to: {amended_item}."))
                     HistoryList.add(amended_item, "AMENDED")
 
                 todo_list.write(item)
@@ -106,7 +106,7 @@ class TodoList:
                     if i != item_index and item.strip() != "":
                         todo_list.write(item)
                     else:
-                        cls.add_message(ColourString.colour("red", f"Removed item {i + 1}: {item.strip()}"))
+                        cls.add_message(c.colour("red", f"Removed item {i + 1}: {item.strip()}"))
                         HistoryList.add(item.strip(), "REMOVED")
 
     @classmethod
