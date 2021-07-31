@@ -7,8 +7,8 @@ This repo is only public so anybody can look at the code if they're interested, 
 
 <hr>
 
-## Todo
-_Yes, my todo list has a todo list!_
+## OPTIONS
+(X is an int)
 
-- Add Colours
-- Refactor to reduce repeated code
+Remove -rX, -rX,Y,Z...
+Removes 

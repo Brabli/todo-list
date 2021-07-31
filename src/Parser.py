@@ -19,8 +19,8 @@ class Parser:
                     if option == "r":
                         lines_to_remove = arg[2:].split(",")
                         for line_num in lines_to_remove:
-                            if not isinstance(line_num, int):
-                                raise ValueError("Must specify at least one integer argument for -r!")
+                            # if not isinstance(line_num, int):
+                            #     raise ValueError("Must specify at least one integer argument for -r!")
                             if line_num == "0":
                                 item_index = TodoList.get_num_items() - 1
                             else:
@@ -29,8 +29,8 @@ class Parser:
 
                     elif option == "a":
                         line_to_amend = arg[2:]
-                        if not isinstance(line_to_amend, int):
-                            raise ValueError("Must specify an integer argument for -a!")
+                        # if not isinstance(line_to_amend, int):
+                        #     raise ValueError("Must specify an integer argument for -a!")
                         index_to_amend = int(line_to_amend) - 1
                         parsed_args["a"].append(index_to_amend)
 
