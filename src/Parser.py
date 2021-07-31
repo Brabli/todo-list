@@ -39,6 +39,7 @@ class Parser:
             else:
                 parsed_args["i"].append(arg)
 
+        parsed_args["r"] = list(set(parsed_args["r"]))
         parsed_args["r"].sort(reverse = True)
         parsed_args["i"] = cls.create_list_item(parsed_args["i"])
 
