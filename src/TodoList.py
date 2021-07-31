@@ -27,7 +27,10 @@ class TodoList:
             cls.remove(parsed_args["r"])
 
         if len(parsed_args["a"]) != 0:
-            cls.amend(parsed_args["a"][0], parsed_args["i"])
+            if (parsed_args["i"] == ""):
+                cls.add_message(c.colour("blue", f"Nothing to amend to item {parsed_args['a'][0] + 1}!"))
+            else:
+                cls.amend(parsed_args["a"][0], parsed_args["i"])
             return
 
         if parsed_args["i"] != "" and len(parsed_args["a"]) == 0:
