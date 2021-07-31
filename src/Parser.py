@@ -46,7 +46,8 @@ class Parser:
                     parsed_args["i"].append(arg)
         except ValueError as e:
             print()
-            print(c.colour("red", f"ERROR: {str(e)}"))
+            # print(c.colour("red", f"ERROR: {str(e)}"))
+            print(c.colour("red", f"ERROR: Incorrect or no args found for given option/s!"))
 
         parsed_args["r"] = list(set(parsed_args["r"]))
         parsed_args["r"].sort(reverse = True)
