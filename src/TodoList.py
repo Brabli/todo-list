@@ -58,11 +58,13 @@ class TodoList:
 
         else:
             for i in range(num_items):
+                # Not sure if I like the alternate colours, but we'll see how I feel later
+                colour = "cyan" if i % 2 == 0 else "white"
                 item_number = f"{str(i + 1)}. "
                 item = all_items[i].strip()
                 print(c.multicolour({
                     "orange": item_number,
-                    "none": item
+                    colour: item
                 }))
 
         print("")
