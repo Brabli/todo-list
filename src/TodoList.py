@@ -33,7 +33,14 @@ class TodoList:
                 cls.amend(parsed_args["a"][0], parsed_args["i"])
             return
 
-        if parsed_args["i"] != "" and len(parsed_args["a"]) == 0:
+        if len(parsed_args["A"]) != 0:
+            if (parsed_args["i"] == ""):
+                cls.add_message(c.colour("blue", f"Nothing to append to item {parsed_args['A'][0] + 1}!"))
+            else:
+                cls.append(parsed_args["A"][0], parsed_args["i"])
+            return
+
+        if parsed_args["i"] != "" and len(parsed_args["a"]) == 0 and len(parsed_args["A"]) == 0:
             cls.add(parsed_args["i"])
 
     @classmethod
@@ -82,7 +89,7 @@ class TodoList:
     @classmethod
     def amend(cls, item_index, amended_item):
         """
-        :param item_index: Int, item index to add to list.
+        :param item_index: Int, item index to be amended.
         :param amended_item: String, string to replace the current item.
         """
         all_items = cls.__get_all_items()
@@ -94,6 +101,26 @@ class TodoList:
                     item = amended_item + "\n"
                     cls.add_message(c.colour("blue", f"Item {item_index + 1} amended to: {amended_item}."))
                     HistoryList.add(amended_item, "AMENDED")
+
+                todo_list.write(item)
+
+    @classmethod
+    def append(cls, item_index, text_to_append):
+        """
+        :param item_index: Int, item index to have text appended.
+        :param text_to_append: String, string to append to the current item.
+        """
+        all_items = cls.__get_all_items()
+        with open(cls.todo_list_path, "w") as todo_list:
+            for i, current_item in enumerate(all_items):
+                if (i != item_index):
+                    item = current_item
+                else:
+                    # Removes uppercased first letter
+                    text_to_append = text_to_append[0].lower() + text_to_append[1:]
+                    item = f"{current_item.strip()} {text_to_append}\n"
+                    cls.add_message(c.colour("blue", f"Item {item_index + 1} appended to: {item.strip()}."))
+                    HistoryList.add(text_to_append, "APPENDED")
 
                 todo_list.write(item)
 

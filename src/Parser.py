@@ -9,8 +9,8 @@ class Parser:
         :param args: All args EXCEPT for first arg which is the filepath.
         """
         # Why do I need a hard coded args dict?
-        parsed_args = { "r": [], "i": [], "a": [] }
-        # r: remove, i: item, a: amend, h: history
+        parsed_args = { "r": [], "i": [], "a": [], "A": [] }
+        # r: remove, i: item, a: amend, h: history, A: append
 
         try:
             for arg in args:
@@ -33,6 +33,11 @@ class Parser:
                         #     raise ValueError("Must specify an integer argument for -a!")
                         index_to_amend = int(line_to_amend) - 1
                         parsed_args["a"].append(index_to_amend)
+
+                    elif option == "A":
+                        line_to_amend = arg[2:]
+                        index_to_amend = int(line_to_amend) - 1
+                        parsed_args["A"].append(index_to_amend)
 
                     elif option == "h":
                         # Crude af will change this later
